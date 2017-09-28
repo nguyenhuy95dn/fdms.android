@@ -14,9 +14,9 @@ import com.framgia.fdms.data.source.UserRepository;
 import com.framgia.fdms.data.source.local.UserLocalDataSource;
 import com.framgia.fdms.data.source.local.sharepref.SharePreferenceImp;
 import com.framgia.fdms.databinding.ActivityRequestDetailBinding;
-import com.github.clans.fab.FloatingActionMenu;
 
 import static com.framgia.fdms.utils.Constant.BundleRequest.BUND_REQUEST;
+import static com.framgia.fdms.utils.Constant.BundleRequest.VISIBLE_ASSIGN_TO;
 
 /**
  * Created by tuanbg on 5/24/17.
@@ -26,10 +26,12 @@ public class RequestDetailActivity extends AppCompatActivity {
     private Toolbar mToolbar;
     private RequestDetailContract.ViewModel mViewModel;
     private Request mRequest;
+    private boolean mIsVisibleAssignTo;
 
-    public static Intent newInstance(Context context, Request request) {
+    public static Intent newInstance(Context context, Request request, boolean visibleAssignTo) {
         Intent intent = new Intent(context, RequestDetailActivity.class);
         intent.putExtra(BUND_REQUEST, request);
+        intent.putExtra(VISIBLE_ASSIGN_TO, visibleAssignTo);
         return intent;
     }
 
@@ -37,9 +39,10 @@ public class RequestDetailActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getRequestFromIntent();
+        mIsVisibleAssignTo = getIntent().getExtras().getBoolean(VISIBLE_ASSIGN_TO);
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_request_detail);
         mViewModel = new RequestDetailViewModel(this, mRequest.getRequestActionList(),
-            mRequest.getRequestStatus(), mRequest, mBinding.floatActionMenu);
+            mRequest.getRequestStatus(), mRequest, mBinding.floatActionMenu, mIsVisibleAssignTo);
         mBinding.setViewModel((RequestDetailViewModel) mViewModel);
         RequestDetailContract.Presenter presenter = new RequestDetailPresenter(mViewModel,
             new UserRepository(

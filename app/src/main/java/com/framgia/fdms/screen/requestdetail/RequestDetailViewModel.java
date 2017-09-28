@@ -57,9 +57,11 @@ public class RequestDetailViewModel extends BaseObservable
     private FloatingActionMenu mFloatingActionsMenu;
     private Request mRequestTemp;
     private int mActionMenuVisibility;
+    private boolean mIsVisibleAssignTo;
 
     public RequestDetailViewModel(AppCompatActivity activity, List<Request.RequestAction> actions,
-        String statusRequest, Request actionRequest, FloatingActionMenu floatingActionsMenu) {
+        String statusRequest, Request actionRequest, FloatingActionMenu floatingActionsMenu,
+        boolean visibleAssignTo) {
         mContext = activity;
         mActivity = activity;
         setRequest(actionRequest);
@@ -67,6 +69,7 @@ public class RequestDetailViewModel extends BaseObservable
         mIsEdit.set(false);
         mListAction.addAll(actions);
         mFloatingActionsMenu = floatingActionsMenu;
+        mIsVisibleAssignTo = visibleAssignTo;
     }
 
     @Override
@@ -298,5 +301,13 @@ public class RequestDetailViewModel extends BaseObservable
     public void setActionMenuVisibility(int actionMenuVisibility) {
         this.mActionMenuVisibility = actionMenuVisibility;
         notifyPropertyChanged(BR.actionMenuVisibility);
+    }
+
+    public boolean isVisibleAssignTo() {
+        return mIsVisibleAssignTo;
+    }
+
+    public void setVisibleAssignTo(boolean visibleAssignTo) {
+        mIsVisibleAssignTo = visibleAssignTo;
     }
 }

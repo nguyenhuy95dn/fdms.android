@@ -151,6 +151,7 @@ public class Constant {
 
     public class BundleRequest {
         public static final String BUND_REQUEST = "BUND_REQUEST";
+        public static final String VISIBLE_ASSIGN_TO = "VISIBLE_ASSIGN_TO";
     }
 
     public class RequestAction {

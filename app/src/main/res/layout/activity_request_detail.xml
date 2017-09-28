@@ -113,7 +113,18 @@
                                 bind:text="@{viewModel.request.updater}"
                                 bind:title="@{@string/title_update_by}"
                                 />
-
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:visibility="@{viewModel.visibleAssignTo ? View.VISIBLE : View.GONE}"
+                                >
+                                <include
+                                    layout="@layout/text_input"
+                                    bind:image="@{@drawable/ic_profile_24dp}"
+                                    bind:text="@{viewModel.request.assignee}"
+                                    bind:title="@{@string/text_assign_to}"
+                                    />
+                            </LinearLayout>
                             <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
